@@ -212,6 +212,15 @@ Check if input value is exact to value
 $name->setValidations([new ValidExact(34)]);
 ```
 
+### Exact Length
+Check if input value has the exaxt length
+- param1: int length
+- param2: string (custom message)
+```php
+...
+$name->setValidations([new ValidExactLength(34)]);
+```
+
 ### MAX
 Check if input value is max
 - param1: int value max
