@@ -155,6 +155,15 @@ whole number
 $name->setFilters([new FilterWholeNumber()]);
 ```
 
+#### Date
+Format date
+- param1: string input_format
+- param2: string output_format
+```php
+...
+$name->setFilters([new FilterDate('m/y', 'ym')]);
+```
+
 ### Create custom filter
 ```php
 class FilterLetter implements Filter
@@ -208,6 +217,15 @@ Check if input value is exact to value
 ```php
 ...
 $name->setValidations([new ValidExact(34)]);
+```
+
+### Exact Length
+Check if input value has the exaxt length
+- param1: int length
+- param2: string (custom message)
+```php
+...
+$name->setValidations([new ValidExactLength(34)]);
 ```
 
 ### MAX
