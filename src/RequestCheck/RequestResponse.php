@@ -6,6 +6,7 @@ class RequestResponse
 {
     private $errors = [];
     private $messages = [];
+    private $data;
 
     public function __construct($messages = [])
     {
@@ -15,6 +16,16 @@ class RequestResponse
     public function addError($fieldError)
     {
         $this->errors[] = $fieldError;
+    }
+
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
+    public function getData()
+    {
+        return $this->data;
     }
 
     public function isValid(): bool

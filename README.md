@@ -71,14 +71,12 @@ $data = [
 $fields = [$name, $url];
 $request = new RequestCheck($data, new InputCollection($fields));
 
-// return data filtered 
-$data_filtered = $request->filter();
-
 // return RequestResponse
-$response = $request->validate();
+$response = $request->checkRequest();
 
 if($response->isValid()){
     // no errors
+    var_dump($request->getData());
 }else{
     var_dump($response->getErrors());
 }
