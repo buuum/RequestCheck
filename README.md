@@ -157,6 +157,15 @@ whole number
 $name->setFilters([new FilterWholeNumber()]);
 ```
 
+#### Date
+Format date
+- param1: string input_format
+- param2: string output_format
+```php
+...
+$name->setFilters([new FilterDate('m/y', 'ym')]);
+```
+
 ### Create custom filter
 ```php
 class FilterLetter implements Filter
