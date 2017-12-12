@@ -7,7 +7,7 @@ class RequestResponse
     private $errors = [];
     private $messages = [];
     private $data;
-    private $errorsKeys;
+    private $errorsKeys = [];
 
     public function __construct($messages = [])
     {
