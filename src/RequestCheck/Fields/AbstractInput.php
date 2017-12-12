@@ -4,12 +4,14 @@ namespace RequestCheck\Fields;
 
 use RequestCheck\Filters\Filter;
 use RequestCheck\Validations\AbstractValidation;
+use RequestCheck\Validations\ValidRequired;
 
 abstract class AbstractInput implements InterfaceInput
 {
 
     protected $name;
     protected $alias;
+    protected $required;
     /**
      * @var Filter []
      */
@@ -18,16 +20,17 @@ abstract class AbstractInput implements InterfaceInput
      * @var AbstractValidation []
      */
     protected $validations = [];
-    /**
-     * @var FieldError
-     */
     protected $errors_class;
     protected $position = false;
     protected $error_messages;
 
-    public function __construct($name)
+    public function __construct($name, $required = false)
     {
         $this->name = $name;
+        $this->required = $required;
+        if ($this->required) {
+            $this->validations[] = new ValidRequired();
+        }
     }
 
     public function setFilters($filters)
@@ -38,7 +41,7 @@ abstract class AbstractInput implements InterfaceInput
 
     public function setValidations($validations)
     {
-        $this->validations = $validations;
+        $this->validations = array_merge($this->validations, $validations);
         return $this;
     }
 

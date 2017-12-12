@@ -17,6 +17,10 @@ class Input extends AbstractInput
     {
         $this->errors_class = new InputError($this);
 
+        if (!$this->required && empty($data)) {
+            return $this->errors_class->isValid();
+        }
+
         foreach ($this->validations as $validation) {
             if (!$validation->validate($data)) {
                 $this->errors_class->addError(new MessageError($this, $validation));

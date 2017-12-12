@@ -6,10 +6,10 @@ class InputObject extends AbstractInput
 {
     private $inputs;
 
-    public function __construct($name, InputCollection $inputs)
+    public function __construct($name, InputCollection $inputs, $required = false)
     {
         $this->inputs = $inputs;
-        parent::__construct($name);
+        parent::__construct($name, $required);
     }
 
     public function filter($data)
@@ -26,6 +26,10 @@ class InputObject extends AbstractInput
     public function validate($data)
     {
         $this->errors_class = new InputError($this);
+
+        if (!$this->required && empty($data)) {
+            return $this->errors_class->isValid();
+        }
 
         foreach ($this->validations as $validation) {
             if (!$validation->validate($data)) {

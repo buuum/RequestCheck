@@ -6,10 +6,10 @@ class InputArray extends AbstractInput
 {
     private $input;
 
-    public function __construct($name, AbstractInput $input)
+    public function __construct($name, AbstractInput $input, $required = false)
     {
         $this->input = $input;
-        parent::__construct($name);
+        parent::__construct($name, $required);
     }
 
     public function filter($data)
@@ -24,6 +24,10 @@ class InputArray extends AbstractInput
     public function validate($data)
     {
         $this->errors_class = new InputError($this);
+
+        if (!$this->required && empty($data)) {
+            return $this->errors_class->isValid();
+        }
 
         foreach ($this->validations as $validation) {
             if (!$validation->validate($data)) {
