@@ -234,7 +234,7 @@ Check if input value is max
 - param2: string (custom message)
 ```php
 ...
-$name->setValidations([new ValidExact(34)]);
+$name->setValidations([new ValidMax(34)]);
 ```
 
 ### MIN
@@ -244,6 +244,24 @@ Check if input value is min
 ```php
 ...
 $name->setValidations([new ValidMin(34)]);
+```
+
+### MAXLENGTH
+Check if input value is max
+- param1: int value max
+- param2: string (custom message)
+```php
+...
+$name->setValidations([new ValidMaxLength(34)]);
+```
+
+### MINLENGTH
+Check if input value is min
+- param1: int value min
+- param2: string (custom message)
+```php
+...
+$name->setValidations([new ValidMinLength(34)]);
 ```
 
 
