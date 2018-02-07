@@ -9,11 +9,13 @@ class InputError
     private $position;
     private $errors = [];
     private $subfields = [];
+    private $is_array;
 
-    public function __construct(AbstractInput $input)
+    public function __construct(AbstractInput $input, $isArray = false)
     {
         $this->input = $input;
         $this->position = $input->position();
+        $this->is_array = $isArray;
     }
 
     public function position()
@@ -59,6 +61,11 @@ class InputError
     public function isValid()
     {
         return empty($this->errors) && empty($this->subfields());
+    }
+
+    public function isArray()
+    {
+        return $this->is_array;
     }
 
 }

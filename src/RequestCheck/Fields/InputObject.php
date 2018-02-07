@@ -38,10 +38,8 @@ class InputObject extends AbstractInput
         }
 
         foreach ($this->inputs as $input) {
-            if (isset($data[$input->name()])) {
-                if (!$input->validate($data[$input->name()])) {
-                    $this->errors_class->addSubfield($input->getErrors());
-                }
+            if (!$input->validate($data[$input->name()] ?? '')) {
+                $this->errors_class->addSubfield($input->getErrors());
             }
         }
 

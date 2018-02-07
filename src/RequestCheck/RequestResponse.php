@@ -2,6 +2,8 @@
 
 namespace RequestCheck;
 
+use RequestCheck\Fields\InputObject;
+
 class RequestResponse
 {
     private $errors = [];
@@ -23,17 +25,21 @@ class RequestResponse
     private function parseErrorsKeys($fieldError)
     {
         if (!empty($fieldError->subfields())) {
-            return $this->errorsKeys($fieldError->subfields());
+            return $this->errorsKeys($fieldError->subfields(), $fieldError->isArray());
         }
         return [];
     }
 
-    private function errorsKeys($subfields)
+    private function errorsKeys($subfields, $isArray)
     {
         $parts = [];
         foreach ($subfields as $fieldError) {
-            $position = empty($fieldError->position()) ? 1 : $fieldError->position();
-            $parts[$fieldError->name()][$position] = $this->parseErrorsKeys($fieldError);
+            if ($isArray) {
+                $position = empty($fieldError->position()) ? 1 : $fieldError->position();
+                $parts[$fieldError->name()][$position] = $this->parseErrorsKeys($fieldError);
+            } else {
+                $parts[$fieldError->name()] = $this->parseErrorsKeys($fieldError);
+            }
         }
 
         return $parts;

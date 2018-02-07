@@ -23,7 +23,7 @@ class InputArray extends AbstractInput
 
     public function validate($data)
     {
-        $this->errors_class = new InputError($this);
+        $this->errors_class = new InputError($this, true);
 
         if (!$this->required && empty($data)) {
             return $this->errors_class->isValid();
