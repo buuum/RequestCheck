@@ -32,7 +32,8 @@ class RequestResponse
     {
         $parts = [];
         foreach ($subfields as $fieldError) {
-            $parts[][$fieldError->name()] = $this->parseErrorsKeys($fieldError);
+            $position = empty($fieldError->position()) ? 1 : $fieldError->position();
+            $parts[$fieldError->name()][$position] = $this->parseErrorsKeys($fieldError);
         }
 
         return $parts;
