@@ -70,4 +70,9 @@ class RequestResponse
         return $this->errorsKeys;
     }
 
+    public function get($name)
+    {
+        return $this->data[$name] ?? null;
+    }
+
 }
