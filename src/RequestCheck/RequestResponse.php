@@ -2,7 +2,6 @@
 
 namespace RequestCheck;
 
-use RequestCheck\Fields\InputObject;
 
 class RequestResponse
 {
@@ -27,6 +26,7 @@ class RequestResponse
         if (!empty($fieldError->subfields())) {
             return $this->errorsKeys($fieldError->subfields(), $fieldError->isArray());
         }
+
         return [];
     }
 
@@ -68,6 +68,31 @@ class RequestResponse
     public function getErrorsKeys(): array
     {
         return $this->errorsKeys;
+    }
+
+    public function getErrorsForm(): array
+    {
+        $errors = [];
+        foreach ($this->errorsKeys as $key => $value) {
+
+            if (!empty($value)) {
+                foreach ($value as $object => $items) {
+                    if (!empty($items)) {
+                        foreach ($items as $pos => $values) {
+                            foreach ($values as $valor => $result) {
+                                $i = $pos - 1;
+                                $errors[] = "$key" . "[$i" . "][$valor]";
+                            }
+                        }
+                    } else {
+                        $errors[] = "$key" . "[$object]";
+                    }
+                }
+            } else {
+                $errors[] = $key;
+            }
+        }
+        return $errors;
     }
 
     public function get($name)
