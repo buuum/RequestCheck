@@ -8,7 +8,7 @@ class ValidRequired extends AbstractValidation
 
     public function validate($value)
     {
-        if (empty($value)) {
+        if (!is_numeric($value) && empty($value)) {
             return false;
         }
 
